@@ -1,0 +1,35 @@
+GET http://localhost:3003/users
+
+###
+GET HTTP://localhost:3003/contract
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjoiYjE0NTA5NDQtYmNkOC00MDhiLWE1ZTEtNmZkMmFjNDEyMGUwIiwiaWF0IjoxNjg2MTM2MTg3LCJleHAiOjE2ODYxMzk3ODd9.8mlxcqJa3taMjxBcKacatEcnFCja6YAZpQQ4-9044WQ
+
+###
+POST http://localhost:3003/contract
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjoiYjE0NTA5NDQtYmNkOC00MDhiLWE1ZTEtNmZkMmFjNDEyMGUwIiwiaWF0IjoxNjg2MTM2MTg3LCJleHAiOjE2ODYxMzk3ODd9.8mlxcqJa3taMjxBcKacatEcnFCja6YAZpQQ4-9044WQ
+Content-Type: application/json
+
+{
+    "company": "empresa",
+    "owner": "eu",
+    "signedAt": "15/02/2023"
+}
+
+###
+POST http://localhost:3003/login
+Content-Type: application/json
+
+{
+    "email": "mesmo@gmail.com",
+    "password": "flamair"
+}
+
+###
+POST http://localhost:3003/users
+Content-Type: application/json
+
+{
+    "username": "Fulano",
+    "email": "mesmo@gmail.com",
+    "password": "flamair"
+}
