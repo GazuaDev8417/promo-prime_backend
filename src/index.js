@@ -22,7 +22,6 @@ import { uploadFiles } from './endpoints/uploadFiles.js'
 
 import { getUsers } from './endpoints/getUsers.js'
 import { getContracts } from './endpoints/getContracts.js'
-import { getUploadedFile } from './endpoints/getUploadedFile.js'
 
 app.post('/signup', insertUser)
 // ==================MIDDLEWARE FOR SENDING FILE==========================
@@ -34,6 +33,5 @@ app.post('/login', login)
 
 app.get('/users', getUsers)
 app.get('/contract', getContracts)
-app.get('/display-file/:filename', getUploadedFile)
 
 
