@@ -23,15 +23,19 @@ import { uploadFiles } from './endpoints/uploadFiles.js'
 import { getUsers } from './endpoints/getUsers.js'
 import { getContracts } from './endpoints/getContracts.js'
 
-app.post('/signup', insertUser)
+import { deleteFile } from './endpoints/deleteFile.js'
+
 // ==================MIDDLEWARE FOR SENDING FILE==========================
 app.use('/files', express.static('src/uploads'))
 app.post('/contractFile',  upload.single('contract'), uploadFiles)
 // ==========================END OF MIDDLEWARE AND ENDPOINT======================
-app.post('/contract', insertContract)
+app.post('/signup', insertUser)
 app.post('/login', login)
+app.post('/contract', insertContract)
 
 app.get('/users', getUsers)
 app.get('/contract', getContracts)
+
+app.delete('/contract/:id', deleteFile)
 
 

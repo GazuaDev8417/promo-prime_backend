@@ -9,7 +9,7 @@ export const insertContract = async(req, res)=>{
     try{
 
         const id = new Authentication().generateId()
-        await auth(req)
+        const user = await auth(req)
         const { company, owner, signedAt, contractName } = req.body
 
         if(!company || !owner || !signedAt || !contractName){
@@ -32,7 +32,8 @@ export const insertContract = async(req, res)=>{
             company,
             owner,
             signedAt,
-            contractName
+            contractName,
+            user_id: user.id
         })
 
         res.status(200).send('Contrato registrado com sucesso')
