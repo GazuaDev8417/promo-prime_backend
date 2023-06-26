@@ -25,7 +25,9 @@ con.raw(`
         id VARCHAR(255) PRIMARY KEY NOT NULL,
         company VARCHAR(150)  NOT NULL,
         signedAt DATE NOT NULL,
-        expiresAt DATE NOT NULL
+        expiresAt DATE NOT NULL,
+        contractName VARCHAR(150) NOT NULL,
+        user_id VARCHAR(255) NOT NULL
     )
 `).then(()=>{
     console.log(`Table ${contractTable} was created`)
