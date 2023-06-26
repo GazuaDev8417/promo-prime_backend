@@ -1,4 +1,5 @@
 import con from '../connection/connection.js'
+import { auth } from '../services/auth.js'
 
 
 
@@ -6,7 +7,9 @@ export const getUsers = async(req, res)=>{
     let statusCode = 400
     try{
 
-        const [users] = await con.raw(`
+        await auth(req)
+
+        const users = await con.raw(`
             SELECT id, name, email FROM promo_prime_users
         `)
         

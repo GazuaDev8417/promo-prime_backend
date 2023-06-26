@@ -58,7 +58,7 @@ export const insertUser = async(req, res)=>{
             user: role
         })
 
-        res.status(201).send({token, role})
+        res.status(201).send({token, user: role})
     }catch(e){
         res.status(statusCode).send(e.message || e.sqlMessage)
     }

@@ -1,6 +1,7 @@
 import con from './connection.js'
 const usersTable = 'promo_prime_users'
 const contractTable = 'promo_prime_contract'
+const taksTable = 'promo_prime_tasks'
  
 
 
@@ -31,6 +32,19 @@ con.raw(`
     )
 `).then(()=>{
     console.log(`Table ${contractTable} was created`)
+}).catch(error=>{
+    console.log(`Failed to create table: ${error}`)
+})
+
+con.raw(`
+    CREATE TABLE ${taksTable}(
+        id VARCHAR(255) PRIMARY KEY NOT NULL,
+        task TEXT  NOT NULL,
+        moment DATE NOT NULL,
+        user_id VARCHAR(255) NOT NULL
+    )
+`).then(()=>{
+    console.log(`Table ${taksTable} was created`)
 }).catch(error=>{
     console.log(`Failed to create table: ${error}`)
 })

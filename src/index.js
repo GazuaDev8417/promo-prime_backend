@@ -21,7 +21,10 @@ import { login } from './endpoints/login.js'
 import { uploadFiles } from './endpoints/uploadFiles.js'
 
 import { getUsers } from './endpoints/getUsers.js'
+import { getUserById } from './endpoints/getUserById.js'
 import { getContracts } from './endpoints/getContracts.js'
+
+import { editContracts } from './endpoints/editContracts.js'
 
 import { deleteFile } from './endpoints/deleteFile.js'
 
@@ -34,7 +37,10 @@ app.post('/login', login)
 app.post('/contract', insertContract)
 
 app.get('/users', getUsers)
+app.get('/user/:id', getUserById)
 app.get('/contract', getContracts)
+
+app.put('/contract', editContracts)
 
 app.delete('/contract/:id', deleteFile)
 
