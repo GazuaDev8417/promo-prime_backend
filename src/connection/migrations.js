@@ -40,7 +40,6 @@ con.raw(`
     CREATE TABLE ${taksTable}(
         id VARCHAR(255) PRIMARY KEY NOT NULL,
         task TEXT  NOT NULL,
-        moment DATE NOT NULL,
         user_id VARCHAR(255) NOT NULL
     )
 `).then(()=>{
