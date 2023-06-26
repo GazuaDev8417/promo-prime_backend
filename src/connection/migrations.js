@@ -9,7 +9,8 @@ con.raw(`
         id VARCHAR(255) PRIMARY KEY NOT NULL,
         name VARCHAR(50) NOT NULL,
         email VARCHAR(150) NOT NULL,
-        password VARCHAR(255) NOT NULL
+        password VARCHAR(255) NOT NULL,
+        user ENUM('DEFAULT', 'ADM') NOT NULL
     )
 `).then(()=>{
     console.log(`Table ${usersTable} was created`)
@@ -23,8 +24,8 @@ con.raw(`
     CREATE TABLE ${contractTable}(
         id VARCHAR(255) PRIMARY KEY NOT NULL,
         company VARCHAR(150)  NOT NULL,
-        owner VARCHAR(150) NOT NULL,
-        signedAt DATE NOT NULL
+        signedAt DATE NOT NULL,
+        expiresAt DATE NOT NULL
     )
 `).then(()=>{
     console.log(`Table ${contractTable} was created`)

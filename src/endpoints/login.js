@@ -25,13 +25,14 @@ export const login = async(req, res)=>{
 
         const compare = auth.compare(password, user.password)
         const token = auth.token(user.id)
+        
         if(!compare){
             statusCode = 404
             throw new Error('Usuário não encontrado')
         }
 
 
-        res.status(200).send(token)
+        res.status(200).send({token, user: user.user})
     }catch(e){
         res.status(statusCode).send(e.message || e.sqlMessage)
     }

@@ -6,12 +6,17 @@ export const insertUser = async(req, res)=>{
     let statusCode = 400
     try{
 
-        const { username, email, password, confirmPass } = req.body
+        const { username, email, password, confirmPass, role } = req.body
         const auth = new Authentication()
-
-        if(!username || !email || !password || !confirmPass){
+        
+        if(!username || !email || !password || !confirmPass || !role){
             statusCode = 401
             throw new Error('Preencha os campos')
+        }
+
+        if(role === `option1`){
+            statusCode = 401
+            throw new Error('Escolha um tipo de usuário')
         }
 
         if(password.length < 6){
@@ -24,6 +29,15 @@ export const insertUser = async(req, res)=>{
             throw new Error('As senhas não correspodem')
         }
 
+        const [userADM] = await con('promo_prime_users').where({
+            user: `ADM`
+        })
+
+        if(userADM && role === `ADM`){
+            statusCode = 403
+            throw new Error('Já existe um usuário ADM')
+        }
+        
         const [user] = await con('promo_prime_users').where({
             email
         })
@@ -40,10 +54,11 @@ export const insertUser = async(req, res)=>{
             id,
             name: username,
             email,
-            password: auth.hash(password)
+            password: auth.hash(password),
+            user: role
         })
 
-        res.status(201).send(token)
+        res.status(201).send({token, role})
     }catch(e){
         res.status(statusCode).send(e.message || e.sqlMessage)
     }

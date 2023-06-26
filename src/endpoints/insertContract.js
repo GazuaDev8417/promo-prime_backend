@@ -10,9 +10,9 @@ export const insertContract = async(req, res)=>{
 
         const id = new Authentication().generateId()
         const user = await auth(req)
-        const { company, owner, signedAt, contractName } = req.body
+        const { company, signedAt, expiresAt, contractName } = req.body
 
-        if(!company || !owner || !signedAt || !contractName){
+        if(!company || !signedAt || !expiresAt || !contractName){
             statusCode = 403
             throw new Error('Preencha os campos')
         }
@@ -30,8 +30,8 @@ export const insertContract = async(req, res)=>{
         await con('promo_prime_contract').insert({
             id,
             company,
-            owner,
             signedAt,
+            expiresAt,
             contractName,
             user_id: user.id
         })
