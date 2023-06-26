@@ -8,18 +8,17 @@ export const getUserById = async(req, res)=>{
     try{
 
         await auth(req)
-        const id = req.params.id
 
         const [user] = await con.raw(`
-            SELECT id, name, email FROM promo_prime_users  WHERE id = '${id}'
+            SELECT id, name, email FROM promo_prime_users  WHERE id = '${req.params.id}'
         `)
         
-        if(!user){
+        if(!user[0]){
             statusCode = 404
             throw new Error('Usuário não encontrado') 
         }
 
-        res.status(200).send(user)
+        res.status(200).send(user[0])
     }catch(e){
         res.status(statusCode).send(e.message || e.sqlMessage)
     }

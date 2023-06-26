@@ -36,6 +36,12 @@ export const insertContract = async(req, res)=>{
             user_id: user.id
         })
 
+        await con('promo_prime_tasks').insert({
+            id: new Authentication().generateId(),
+            task: `Usuário ${user.name} portador do email ${user.email} adicionou o contrato da empresa ${company} em ${new Date().toLocaleDateString()} às ${new Date().toLocaleTimeString()}`,
+            user_id: user.id
+        })
+
         res.status(200).send('Contrato registrado com sucesso')
     }catch(e){
         res.status(statusCode).send(e.message || e.sqlMessage)

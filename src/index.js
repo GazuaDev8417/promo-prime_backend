@@ -23,6 +23,7 @@ import { uploadFiles } from './endpoints/uploadFiles.js'
 import { getUsers } from './endpoints/getUsers.js'
 import { getUserById } from './endpoints/getUserById.js'
 import { getContracts } from './endpoints/getContracts.js'
+import { getTasks } from './endpoints/getTasks.js'
 
 import { editContracts } from './endpoints/editContracts.js'
 
@@ -39,8 +40,9 @@ app.post('/contract', insertContract)
 app.get('/users', getUsers)
 app.get('/user/:id', getUserById)
 app.get('/contract', getContracts)
+app.get('/tasks', getTasks)
 
-app.put('/contract', editContracts)
+app.put('/contract/:id', editContracts)
 
 app.delete('/contract/:id', deleteFile)
 
