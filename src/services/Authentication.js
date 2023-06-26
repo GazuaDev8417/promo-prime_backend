@@ -26,7 +26,7 @@ export default class Authentication{
     token = (payload)=>{
         return jwt.sign(
             { payload },
-            process.env.JWT_KEY,
+            'lsoekH15_)*&ASDFEIK-124EF',
             { expiresIn: '1h'}
         )
     }
@@ -34,7 +34,7 @@ export default class Authentication{
     tokenData = (token)=>{
         return jwt.verify(
             token,
-            process.env.JWT_KEY
+            'lsoekH15_)*&ASDFEIK-124EF'
         )
     }
 }
