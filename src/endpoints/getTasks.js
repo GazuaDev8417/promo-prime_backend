@@ -13,7 +13,7 @@ export const getTasks = async(req, res)=>{
         
         if(tasks.length === 0){
             statusCode = 404
-            throw new Error('Lista de usuários vazia') 
+            throw new Error('Lista de tarefas vazia') 
         }
 
         res.status(200).send(tasks)
