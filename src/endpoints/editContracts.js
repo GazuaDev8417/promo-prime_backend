@@ -9,13 +9,16 @@ export const editContracts = async(req, res)=>{
     let statusCode = 400
     try{
         
-        const user = await auth(req)
-
+        const user = await auth(req)        
         const { company, signedAt, expiresAt } = req.body
+
         if(!company || !signedAt || !expiresAt){
             statusCode = 403
             throw new Error('Preencha os campos')
         }
+
+        const signedAtParts = signedAt.split('-')
+        const expiresAtParts = expiresAt.split('-')
         
         
         const [contract] = await con('promo_prime_contract').where({
@@ -25,15 +28,16 @@ export const editContracts = async(req, res)=>{
         
         var updateFields = []
 
+        
         if(company !== contract.company){
             updateFields.push(`Alteração no nome da empresa de ${contract.company} para ${company}`)
         }
 
-        if(signedAt !== contract.signedAt){
+        if(new Date(signedAt).toLocaleDateString() !== new Date(contract.signedAt).toLocaleDateString()){
             updateFields.push(`Alteração na data da assinatura de ${convertContractDate(contract.signedAt)} para ${convertDate(signedAt)}`)
         }
 
-        if(expiresAt !== contract.expiresAt){
+        if(new Date(expiresAt).toLocaleDateString() !== new Date(contract.expiresAt).toLocaleDateString()){
             updateFields.push(`Alteração na data da expiração de ${convertContractDate(contract.expiresAt)} para ${convertDate(expiresAt)}`)
         }
 
@@ -46,16 +50,21 @@ export const editContracts = async(req, res)=>{
             id: req.params.id
         })
 
-        await con('promo_prime_tasks').insert({
-            id: new Authentication().generateId(),
-            user: user.name,
-            email: user.email,
-            moment: `${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`,
-            task: updateFields.join('.\n')
-        })
+        let messageToSend = 'Atualização de contrato realizada com sucesso'
         
+        if(updateFields.length > 0){
+            await con('promo_prime_tasks').insert({
+                id: new Authentication().generateId(),
+                user: user.name,
+                email: user.email,
+                moment: `${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`,
+                task: updateFields.join('.\n')
+            })
+        }else{
+            messageToSend = 'Nenhuma alteração efetuada'
+        }        
 
-        res.status(200).send('Atualização de contrato realizada com sucesso')
+        res.status(200).send(messageToSend)
     }catch(e){
         res.status(statusCode).send(e.message || e.sqlMessage)
     }
