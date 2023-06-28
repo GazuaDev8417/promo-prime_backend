@@ -4,7 +4,7 @@ import { config } from 'dotenv'
 config()
 
 
-/* const con = knex({
+const con = knex({
     client: 'mysql2',
     connection: {
         host: process.env.DB_HOST,
@@ -12,9 +12,9 @@ config()
         password: process.env.DB_PASSWORD,
         database: process.env.DB_SCHEMA
     }
-}) */
+})
 
-const con = knex({
+/* const con = knex({
     client: 'mysql2',
     connection: {
         host: 'localhost',
@@ -22,7 +22,7 @@ const con = knex({
         password: 'alfadb',
         database: 'promo_prime'
     }
-})
+}) */
 
 con.raw('SELECT 1 + 1 AS result').then(()=>{
     console.log('Connected to database')
