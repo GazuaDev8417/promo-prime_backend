@@ -28,8 +28,10 @@ export const editContracts = async(req, res)=>{
 
         await con('promo_prime_tasks').insert({
             id: new Authentication().generateId(),
-            task: `Usuário ${user.name} portador do email ${user.email} realizou alterações no contrato da empresa ${company} em ${new Date().toLocaleDateString()} às ${new Date().toLocaleTimeString()}`,
-            user_id: user.id
+            user: user.name,
+            email: user.email,
+            moment: `${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`,
+            task: `Realizou alterações no contrato da empresa ${company}`
         })
         
 

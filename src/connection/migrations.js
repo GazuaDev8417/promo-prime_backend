@@ -39,8 +39,10 @@ con.raw(`
 con.raw(`
     CREATE TABLE ${taksTable}(
         id VARCHAR(255) PRIMARY KEY NOT NULL,
-        task TEXT  NOT NULL,
-        user_id VARCHAR(255) NOT NULL
+        user VARCHAR(50) NOT NULL,
+        email VARCHAR(150) NOT NULL,
+        moment VARCHAR(50),
+        task TEXT  NOT NULL
     )
 `).then(()=>{
     console.log(`Table ${taksTable} was created`)
