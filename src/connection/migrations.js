@@ -41,7 +41,7 @@ con.raw(`
         id VARCHAR(255) PRIMARY KEY NOT NULL,
         user VARCHAR(50) NOT NULL,
         email VARCHAR(150) NOT NULL,
-        moment VARCHAR(50),
+        moment VARCHAR(50) NOT NULL,
         task TEXT  NOT NULL
     )
 `).then(()=>{
