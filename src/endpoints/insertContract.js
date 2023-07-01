@@ -10,6 +10,7 @@ export const insertContract = async(req, res)=>{
 
         const id = new Authentication().generateId()
         const user = await auth(req)
+
         const { company, signedAt, expiresAt, contractName } = req.body
 
         if(!company || !signedAt || !expiresAt || !contractName){
