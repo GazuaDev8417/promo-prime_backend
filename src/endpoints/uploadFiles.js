@@ -47,6 +47,15 @@ export const uploadFiles = async(req, res)=>{
             contract: fileData
         })
 
+        await con('promo_prime_tasks').insert({
+            id: new Authentication().generateId(),
+            user: user.name,
+            email: user.email,
+            moment: `${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`,
+            task: `Adicionou o contrato da empresa ${company}`
+        })
+        
+
         res.status(200).send('Arquivo enviado com sucesso')
     }catch(e){
         res.status(statusCode).send(e.message)
