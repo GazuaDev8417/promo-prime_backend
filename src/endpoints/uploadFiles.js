@@ -1,22 +1,50 @@
 import con from '../connection/connection.js'
+import { auth } from '../services/auth.js'
+import Authentication from '../services/Authentication.js'
+
+
 
 export const uploadFiles = async(req, res)=>{
     let statusCode = 400
     try{
         
+        const user = await auth(req)
         const uploadedFile = req.file
-        const fileData = uploadedFile.buffer
-    
+
+        const { company,  signedAt,  expiresAt,  contractName} = req.body
+        
+        if(!company || !signedAt || !expiresAt || !contractName){
+            statusCode = 401
+            throw new Error('Preencha os campos')
+        }
+
+        
+        const [existedCP] = await con('promo_prime_contract').where({
+            company
+        })
+
+        if(existedCP){
+            statusCode = 403
+            throw new Error('Empresa já foi cadastrada')
+        }
+        
+                
         if(!uploadedFile){
             statusCode = 403
             throw new Error('Primeiro selecione o arquivo')
         }
+        
+        const fileData = uploadedFile.buffer
 
 
-        await con('promo_prime_contract').update({
+        await con('promo_prime_contract').insert({
+            id: new Authentication().generateId(),
+            company,
+            signedAt,
+            expiresAt,
+            contractName,
+            user_id: user.id,
             contract: fileData
-        }).where({
-            company: req.params.name
         })
 
         res.status(200).send('Arquivo enviado com sucesso')

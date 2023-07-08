@@ -17,7 +17,6 @@ app.listen(port, ()=>{
 })
 
 import { insertUser } from './endpoints/insertUser.js'
-import { insertContract } from './endpoints/insertContract.js'
 import { login } from './endpoints/login.js'
 import { uploadFiles } from './endpoints/uploadFiles.js'
 
@@ -25,19 +24,16 @@ import { getUsers } from './endpoints/getUsers.js'
 import { getUserById } from './endpoints/getUserById.js'
 import { getContracts } from './endpoints/getContracts.js'
 import { getTasks } from './endpoints/getTasks.js'
-import { getPdfFile } from './endpoints/getPdfFile.js'
 
 import { editContracts } from './endpoints/editContracts.js'
 
 import { deleteFile } from './endpoints/deleteFile.js'
 
 // ==================MIDDLEWARE FOR SENDING FILE==========================
-app.use('/files/:id', getPdfFile)
-app.post('/contractFile/:name',  upload.single('contract'), uploadFiles)
+app.post('/contractFile',  upload.single('contract'), uploadFiles)
 // ==========================END OF MIDDLEWARE AND ENDPOINT======================
 app.post('/signup', insertUser)
 app.post('/login', login)
-app.post('/contract', insertContract)
 
 app.get('/users', getUsers)
 app.get('/user/:id', getUserById)
