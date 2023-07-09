@@ -1,0 +1,11 @@
+POST http://localhost:3003/login
+Content-Type: application/json
+
+{
+    "email": "visitante@email.com",
+    "password": "123456"
+}
+
+###
+DELETE http://localhost:3003/contract/7f63a699-0721-4812-9b58-bd189377c5f3
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjoiZGQ3ZTdmM2ItYTZmZi00ZWQ1LWIzZmMtNWEzOWQ0M2RjZjY1IiwiaWF0IjoxNjg4OTI0MzUwLCJleHAiOjE2ODg5Mjc5NTB9.D-TuVaRJ3Pd6KLzJlFrUaYl0ljGQMygQ31tqebBR_ls

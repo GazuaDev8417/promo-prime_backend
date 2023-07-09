@@ -24,20 +24,19 @@ export const editContracts = async(req, res)=>{
         const [contract] = await con('promo_prime_contract').where({
             id: req.params.id
         })
-
         
         var updateFields = []
 
-        
+       
         if(company !== contract.company){
             updateFields.push(`Alteração no nome da empresa de ${contract.company} para ${company}`)
         }
 
-        if(new Date(signedAt).toLocaleDateString() !== new Date(contract.signedAt).toLocaleDateString()){
+        if(convertDate(signedAt) !== convertContractDate(contract.signedAt)){
             updateFields.push(`Alteração na data da assinatura de ${convertContractDate(contract.signedAt)} para ${convertDate(signedAt)}`)
         }
 
-        if(new Date(expiresAt).toLocaleDateString() !== new Date(contract.expiresAt).toLocaleDateString()){
+        if(convertDate(expiresAt) !== convertContractDate(contract.expiresAt)){
             updateFields.push(`Alteração na data da expiração de ${convertContractDate(contract.expiresAt)} para ${convertDate(expiresAt)}`)
         }
 
@@ -49,7 +48,7 @@ export const editContracts = async(req, res)=>{
         }).where({
             id: req.params.id
         })
-
+        
         let messageToSend = 'Atualização de contrato realizada com sucesso'
         
         if(updateFields.length > 0){
@@ -62,7 +61,7 @@ export const editContracts = async(req, res)=>{
             })
         }else{
             messageToSend = 'Nenhuma alteração efetuada'
-        }        
+        }
 
         res.status(200).send(messageToSend)
     }catch(e){
