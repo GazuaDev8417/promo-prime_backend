@@ -43,8 +43,7 @@ export const uploadFiles = async(req, res)=>{
             signedAt,
             expiresAt,
             contractName,
-            user_id: user.id,
-            contract: fileData
+            user_id: user.id
         })
 
         await con('promo_prime_tasks').insert({

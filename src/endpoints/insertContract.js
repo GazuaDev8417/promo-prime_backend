@@ -10,7 +10,6 @@ export const insertContract = async(req, res)=>{
 
         const id = new Authentication().generateId()
         const user = await auth(req)
-
         const { company, signedAt, expiresAt, contractName } = req.body
 
         if(!company || !signedAt || !expiresAt || !contractName){
@@ -28,7 +27,7 @@ export const insertContract = async(req, res)=>{
         }
 
 
-        await con('promo_prime_contract').insert({
+        /* await con('promo_prime_contract').insert({
             id,
             company,
             signedAt,
@@ -43,7 +42,7 @@ export const insertContract = async(req, res)=>{
             email: user.email,
             moment: `${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`,
             task: `Adicionou o contrato da empresa ${company}`
-        })
+        }) */
 
         res.status(200).send('Contrato registrado com sucesso')
     }catch(e){
