@@ -25,6 +25,7 @@ import { getUserById } from './endpoints/getUserById.js'
 import { getContracts } from './endpoints/getContracts.js'
 import { getTasks } from './endpoints/getTasks.js'
 import { getPdfFile } from './endpoints/getPdfFile.js'
+import { getContractById} from './endpoints/getContractById.js'
 
 import { editContracts } from './endpoints/editContracts.js'
 
@@ -40,6 +41,7 @@ app.post('/login', login)
 app.get('/users', getUsers)
 app.get('/user/:id', getUserById)
 app.get('/contract', getContracts)
+app.get('/contract/:id', getContractById)
 app.get('/tasks', getTasks)
 
 app.put('/contract/:id', editContracts)
