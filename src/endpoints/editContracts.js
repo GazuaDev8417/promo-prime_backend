@@ -9,13 +9,15 @@ export const editContracts = async(req, res)=>{
     let statusCode = 400
     try{
         
-        const user = await auth(req)        
-        const { company, signedAt, expiresAt } = req.body
+        const user = await auth(req)    
+        const uploadedFile = req.file    
+        const { company, signedAt, expiresAt, contractName, contractUpdates } = req.body
 
         if(!company || !signedAt || !expiresAt){
             statusCode = 403
             throw new Error('Preencha os campos')
         }
+
 
         const signedAtParts = signedAt.split('-')
         const expiresAtParts = expiresAt.split('-')
@@ -33,18 +35,23 @@ export const editContracts = async(req, res)=>{
         }
 
         if(convertDate(signedAt) !== convertContractDate(contract.signedAt)){
-            updateFields.push(`Alteração na data da assinatura de ${convertContractDate(contract.signedAt)} para ${convertDate(signedAt)}`)
+            updateFields.push(`Alteração na data da assinatura no contrato da empresa ${company} de ${convertContractDate(contract.signedAt)} para ${convertDate(signedAt)}`)
         }
 
         if(convertDate(expiresAt) !== convertContractDate(contract.expiresAt)){
-            updateFields.push(`Alteração na data da expiração de ${convertContractDate(contract.expiresAt)} para ${convertDate(expiresAt)}`)
+            updateFields.push(`Alteração na data da expiração no contrato da empresa ${company} de ${convertContractDate(contract.expiresAt)} para ${convertDate(expiresAt)}`)
+        }
+
+        if(uploadedFile){
+            updateFields.push(contractUpdates)
         }
 
 
         await con('promo_prime_contract').update({
             company,
             signedAt,
-            expiresAt
+            expiresAt,
+            contractName
         }).where({
             id: req.params.id
         })

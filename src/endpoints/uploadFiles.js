@@ -10,7 +10,6 @@ export const uploadFiles = async(req, res)=>{
         
         const user = await auth(req)
         const uploadedFile = req.file
-
         const { company,  signedAt,  expiresAt,  contractName} = req.body
         
         if(!company || !signedAt || !expiresAt || !contractName){

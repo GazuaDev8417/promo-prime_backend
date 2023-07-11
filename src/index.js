@@ -42,7 +42,7 @@ app.get('/user/:id', getUserById)
 app.get('/contract', getContracts)
 app.get('/tasks', getTasks)
 
-app.put('/contract/:id', editContracts)
+app.put('/contract/:id', upload.single('contract'), editContracts)
 
 app.delete('/contract/:id', deleteFile)
 
