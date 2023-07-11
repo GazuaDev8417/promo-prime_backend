@@ -17,10 +17,6 @@ export const editContracts = async(req, res)=>{
             statusCode = 403
             throw new Error('Preencha os campos')
         }
-
-
-        const signedAtParts = signedAt.split('-')
-        const expiresAtParts = expiresAt.split('-')
         
         
         const [contract] = await con('promo_prime_contract').where({
