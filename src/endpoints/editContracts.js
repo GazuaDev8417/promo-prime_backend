@@ -38,12 +38,14 @@ export const editContracts = async(req, res)=>{
             updateFields.push(`Alteração na data da expiração no contrato da empresa ${company} de ${convertContractDate(contract.expiresAt)} para ${convertDate(expiresAt)}`)
         }
 
-        if(uploadedFile && contractUpdates === ''){
-            statusCode = 403
-            throw new Error('Especifique as mudanças do novo contrato')
-        }else{
-            updateFields.push(contractUpdates)
-        }
+        if(uploadedFile){
+            if(contractUpdates === ''){
+                statusCode = 403
+                throw new Error('Especifique as mudanças do contrato')
+            }else{
+                updateFields.push(contractUpdates)
+            }
+        }        
 
 
         await con('promo_prime_contract').update({
