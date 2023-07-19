@@ -11,6 +11,7 @@ const port = process.env.PORT || 3003
 app.use(express.json())
 app.use(cors())
 const upload = multer({ storage: storage })
+const insertContractUpload = multer({ storage: multer.memoryStorage() })
 app.listen(port, ()=>{
     console.log(`Servidor rodando na porta ${port}`)
 })
@@ -35,11 +36,11 @@ app.post('/contractFile',  upload.single('contract'), uploadFiles)
 // ==========================END OF MIDDLEWARE AND ENDPOINT======================
 app.post('/signup', insertUser)
 app.post('/login', login)
-app.post('/contract', insertContract)
+app.post('/contract', insertContractUpload.single('contract'), insertContract)
 
 app.get('/users', getUsers)
 app.get('/user/:id', getUserById)
-app.get('/contract', getContracts)
+app.get('/contracts', getContracts)
 app.get('/tasks', getTasks)
 
 app.put('/contract/:id', upload.single('contract'), editContracts)

@@ -10,6 +10,8 @@ export const insertContract = async(req, res)=>{
 
         const id = new Authentication().generateId()
         const user = await auth(req)
+        const uploadedFile = req.file
+        
         const { company, signedAt, expiresAt, contractName } = req.body
 
         if(!company || !signedAt || !expiresAt || !contractName){
@@ -25,15 +27,16 @@ export const insertContract = async(req, res)=>{
             statusCode = 403
             throw new Error('Empresa já foi cadastrada')
         }
-
-
-        /* await con('promo_prime_contract').insert({
+        
+        
+        await con('promo_prime_contract').insert({
             id,
             company,
             signedAt,
             expiresAt,
             contractName,
-            user_id: user.id
+            user_id: user.id,
+            contract: uploadedFile.buffer
         })
 
         await con('promo_prime_tasks').insert({
@@ -42,7 +45,7 @@ export const insertContract = async(req, res)=>{
             email: user.email,
             moment: `${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`,
             task: `Adicionou o contrato da empresa ${company}`
-        }) */
+        })
 
         res.status(200).send('Contrato registrado com sucesso')
     }catch(e){

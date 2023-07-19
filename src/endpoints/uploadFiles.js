@@ -30,7 +30,7 @@ export const uploadFiles = async(req, res)=>{
                 
         if(!uploadedFile){
             statusCode = 403
-            throw new Error('Selecione o arquivo do contrato')
+            throw new Error('Primeiro selecione o arquivo')
         }
         
         const fileData = uploadedFile.buffer
