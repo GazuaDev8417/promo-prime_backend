@@ -10,7 +10,7 @@ export const uploadFiles = async(req, res)=>{
         
         const user = await auth(req)
         const uploadedFile = req.file
-        const { company,  signedAt,  expiresAt,  contractName} = req.body
+        const { company, signedAt, expiresAt, contractName, contract} = req.body
         
         if(!company || !signedAt || !expiresAt || !contractName){
             statusCode = 401
@@ -42,7 +42,8 @@ export const uploadFiles = async(req, res)=>{
             signedAt,
             expiresAt,
             contractName,
-            user_id: user.id
+            user_id: user.id,
+            contract
         })
 
         await con('promo_prime_tasks').insert({
