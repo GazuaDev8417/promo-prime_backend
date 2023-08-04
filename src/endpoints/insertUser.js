@@ -55,7 +55,8 @@ export const insertUser = async(req, res)=>{
             name: username,
             email,
             password: auth.hash(password),
-            user: role
+            user: role,
+            createdAt: new Date()
         })
 
         res.status(201).send({token, user: role})
