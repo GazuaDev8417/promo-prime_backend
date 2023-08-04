@@ -10,7 +10,7 @@ export const getUserById = async(req, res)=>{
         await auth(req)
 
         const [user] = await con.raw(`
-            SELECT id, name, email FROM promo_prime_users  WHERE id = '${req.params.id}'
+            SELECT id, name, email, createdAt FROM promo_prime_users  WHERE id = '${req.params.id}'
         `)
         
         if(!user[0]){
