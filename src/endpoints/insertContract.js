@@ -44,7 +44,8 @@ export const insertContract = async(req, res)=>{
             user: user.name,
             email: user.email,
             moment: `${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`,
-            task: `Adicionou o contrato da empresa ${company}`
+            task: `Adicionou o contrato da empresa ${company}`,
+            user_id: user.id
         })
 
         res.status(200).send('Contrato registrado com sucesso')
