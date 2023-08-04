@@ -65,7 +65,8 @@ export const editContracts = async(req, res)=>{
                 user: user.name,
                 email: user.email,
                 moment: `${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`,
-                task: updateFields.join('.\n')
+                task: updateFields.join('.\n'),
+                user_id: user.id
             })
         }else{
             messageToSend = 'Nenhuma alteração efetuada'
