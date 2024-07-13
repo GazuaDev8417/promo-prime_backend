@@ -10,9 +10,9 @@ export const uploadFiles = async(req, res)=>{
         
         const user = await auth(req)
         const uploadedFile = req.file
-        const { company, signedAt, expiresAt, contractName, contract} = req.body
-        
-        if(!company || !signedAt || !expiresAt || !contractName){
+        const { company, signedat, expiresat, contractname } = req.body
+
+        if(!company || !signedat || !expiresat || !contractname){
             statusCode = 401
             throw new Error('Preencha os campos')
         }
@@ -33,17 +33,15 @@ export const uploadFiles = async(req, res)=>{
             throw new Error('Primeiro selecione o arquivo')
         }
         
-        const fileData = uploadedFile.buffer
-
 
         await con('promo_prime_contract').insert({
             id: new Authentication().generateId(),
             company,
-            signedAt,
-            expiresAt,
-            contractName,
+            signedat,
+            expiresat,
+            contractname,
             user_id: user.id,
-            contract
+            //contract: uploadedFile
         })
 
         await con('promo_prime_tasks').insert({
@@ -51,7 +49,8 @@ export const uploadFiles = async(req, res)=>{
             user: user.name,
             email: user.email,
             moment: `${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`,
-            task: `Adicionou o contrato da empresa ${company}`
+            task: `Adicionou o contrato da empresa ${company}`,
+            user_id: user.id
         })
         
 

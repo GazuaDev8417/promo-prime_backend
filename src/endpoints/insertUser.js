@@ -32,7 +32,7 @@ export const insertUser = async(req, res)=>{
         const [userADM] = await con('promo_prime_users').where({
             user: `ADM`
         })
-
+        
         if(userADM && role === `ADM`){
             statusCode = 403
             throw new Error('Já existe um usuário ADM')
@@ -56,7 +56,7 @@ export const insertUser = async(req, res)=>{
             email,
             password: auth.hash(password),
             user: role,
-            createdAt: new Date()
+            createdat: new Date()
         })
 
         res.status(201).send({token, user: role})

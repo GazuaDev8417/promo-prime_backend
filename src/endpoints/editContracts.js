@@ -11,9 +11,9 @@ export const editContracts = async(req, res)=>{
         
         const user = await auth(req)    
         const uploadedFile = req.file    
-        const { company, signedAt, expiresAt, contractName, contractUpdates } = req.body
+        const { company, signedat, expiresat, contractName, contractUpdates } = req.body
 
-        if(!company || !signedAt || !expiresAt){
+        if(!company || !signedat || !expiresat){
             statusCode = 403
             throw new Error('Preencha os campos')
         }
@@ -30,12 +30,12 @@ export const editContracts = async(req, res)=>{
             updateFields.push(`Alteração no nome da empresa de ${contract.company} para ${company}`)
         }
 
-        if(convertDate(signedAt) !== convertContractDate(contract.signedAt)){
-            updateFields.push(`Alteração na data da assinatura no contrato da empresa ${company} de ${convertContractDate(contract.signedAt)} para ${convertDate(signedAt)}`)
+        if(convertDate(signedat) !== convertContractDate(contract.signedat)){
+            updateFields.push(`Alteração na data da assinatura no contrato da empresa ${company} de ${convertContractDate(contract.signedat)} para ${convertDate(signedat)}`)
         }
 
-        if(convertDate(expiresAt) !== convertContractDate(contract.expiresAt)){
-            updateFields.push(`Alteração na data da expiração no contrato da empresa ${company} de ${convertContractDate(contract.expiresAt)} para ${convertDate(expiresAt)}`)
+        if(convertDate(expiresat) !== convertContractDate(contract.expiresat)){
+            updateFields.push(`Alteração na data da expiração no contrato da empresa ${company} de ${convertContractDate(contract.expiresat)} para ${convertDate(expiresat)}`)
         }
 
         if(uploadedFile){
@@ -50,8 +50,8 @@ export const editContracts = async(req, res)=>{
 
         await con('promo_prime_contract').update({
             company,
-            signedAt,
-            expiresAt,
+            signedat,
+            expiresat,
             contractName
         }).where({
             id: req.params.id

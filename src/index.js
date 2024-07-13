@@ -11,15 +11,15 @@ app.use(express.json())
 app.use(cors())
 
 const upload = multer({ storage: storage })
-const insertContractUpload = multer({ storage: multer.memoryStorage() })
+//const insertContractUpload = multer({ storage: multer.memoryStorage() })
 
 
 app.listen(port, ()=>{
-    console.log(`Servidor rodando na porta ${port}`)
+    console.log(`Servidor rodando em http://localhost:${port}`)
 })
 
 import { insertUser } from './endpoints/insertUser.js'
-import { insertContract } from './endpoints/insertContract.js'
+//import { insertContract } from './endpoints/insertContract.js'
 import { login } from './endpoints/login.js'
 import { uploadFiles } from './endpoints/uploadFiles.js'
 
@@ -38,7 +38,7 @@ app.post('/contractFile',  upload.single('contract'), uploadFiles)
 // ==========================END OF MIDDLEWARE AND ENDPOINT======================
 app.post('/signup', insertUser)
 app.post('/login', login)
-app.post('/contract', insertContractUpload.single('contract'), insertContract)
+//app.post('/contract', insertContractUpload.single('contract'), insertContract)
 
 app.get('/users', getUsers)
 app.get('/user/:id', getUserById)
